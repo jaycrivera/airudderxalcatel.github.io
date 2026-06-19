@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Rudder × ALE Rainbow: Storyboard & Collaboration Notes</title>
+<style>
+  /* ─── TOKENS ─────────────────────────────────────────────────── */
+  :root {
+    --navy:      #0B1B3E;
+    --navy-mid:  #122354;
+    --blue:      #1A4BAE;
+    --sky:       #2E7CF6;
+    --accent:    #4DAAFF;
+    --gold:      #F5A623;
+    --white:     #FFFFFF;
+    --off-white: #F4F7FF;
+    --mist:      #E8EEF8;
+    --text-main: #0B1B3E;
+    --text-sub:  #4A5A7A;
+    --border:    #D0DCEE;
+
+    --font-display: 'Georgia', 'Times New Roman', serif;
+    --font-body:    'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+    --radius: 10px;
+    --page-max: 860px;
+  }
+
+  /* ─── RESET ──────────────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 15px; }
+  body {
+    font-family: var(--font-body);
+    background: var(--off-white);
+    color: var(--text-main);
+    line-height: 1.7;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ─── PAGE WRAPPER ───────────────────────────────────────────── */
+  .page {
+    max-width: var(--page-max);
+    margin: 0 auto;
+    padding: 48px 40px 80px;
+  }
+
+  /* ─── COVER HEADER ───────────────────────────────────────────── */
+  .cover {
+    background: var(--navy);
+    border-radius: var(--radius);
+    padding: 48px 48px 40px;
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(46,124,246,0.35) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 40%;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(77,170,255,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cover-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+  .cover-title {
+    font-family: var(--font-display);
+    font-size: 2.1rem;
+    font-weight: 400;
+    color: var(--white);
+    line-height: 1.25;
+    margin-bottom: 10px;
+  }
+  .cover-title span { color: var(--accent); }
+  .cover-sub {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.55);
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255,255,255,0.12);
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+  .cover-sub strong { color: rgba(255,255,255,0.8); font-weight: 600; }
+
+  /* ─── SECTION LABEL ──────────────────────────────────────────── */
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--sky);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--navy);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--mist);
+  }
+
+  /* ─── ACTION ITEMS ───────────────────────────────────────────── */
+  .action-block {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin-bottom: 40px;
+  }
+  .action-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .action-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.93rem;
+  }
+  .action-check {
+    flex-shrink: 0;
+    width: 20px; height: 20px;
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    margin-top: 2px;
+  }
+  .action-check.open {
+    border: 2px solid var(--sky);
+    color: transparent;
+  }
+  .action-check.done {
+    background: var(--sky);
+    color: var(--white);
+  }
+  .action-item.done-item {
+    color: var(--text-sub);
+    text-decoration: line-through;
+    text-decoration-color: var(--border);
+  }
+
+  /* ─── VIDEO OPTION CARD ──────────────────────────────────────── */
+  .option-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 40px;
+    overflow: hidden;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .option-header {
+    background: var(--navy-mid);
+    padding: 22px 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .option-badge {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--navy);
+    background: var(--accent);
+    padding: 4px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  .option-title-wrap { flex: 1; }
+  .option-direction-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 3px;
+  }
+  .option-title {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    color: var(--white);
+    font-style: italic;
+  }
+  .option-tagline {
+    font-size: 0.78rem;
+    color: var(--accent);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 3px;
+  }
+
+  .option-body {
+    padding: 28px 32px;
+  }
+  .option-intro {
+    font-size: 0.93rem;
+    color: var(--text-sub);
+    margin-bottom: 24px;
+    line-height: 1.75;
+  }
+  .option-intro strong { color: var(--text-main); }
+
+  /* ─── STORYBOARD BEATS ───────────────────────────────────────── */
+  .beats-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--sky);
+    margin-bottom: 14px;
+  }
+  .beats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .beat {
+    background: var(--off-white);
+    border: 1px solid var(--mist);
+    border-radius: 8px;
+    padding: 16px 18px;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .beat-header {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .beat-num {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--white);
+    background: var(--blue);
+    padding: 2px 7px;
+    border-radius: 3px;
+    letter-spacing: 0.04em;
+  }
+  .beat-title {
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: var(--navy);
+  }
+  .beat-time {
+    font-size: 0.75rem;
+    color: var(--accent);
+    font-weight: 600;
+    margin-left: auto;
+  }
+  .beat p {
+    font-size: 0.85rem;
+    color: var(--text-sub);
+    line-height: 1.6;
+  }
+
+  /* ─── STRATEGIC ROLE BOX ─────────────────────────────────────── */
+  .strategy-box {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+    border-radius: 8px;
+    padding: 22px 26px;
+    margin-top: 4px;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .strategy-box .s-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .strategy-box p {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.82);
+    line-height: 1.7;
+    margin-bottom: 10px;
+  }
+  .strategy-box p:last-child { margin-bottom: 0; }
+
+  /* ─── SCENARIO BLOCK ─────────────────────────────────────────── */
+  .scenario-block {
+    background: var(--mist);
+    border-left: 4px solid var(--sky);
+    border-radius: 0 8px 8px 0;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .scenario-block .s-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 8px;
+  }
+  .quote-line {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.0rem;
+    color: var(--navy);
+    margin: 10px 0;
+    line-height: 1.55;
+  }
+  .scenario-block p {
+    font-size: 0.88rem;
+    color: var(--text-sub);
+    line-height: 1.65;
+  }
+
+  /* ─── FLOW PILLS ─────────────────────────────────────────────── */
+  .flow-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 16px 0 24px;
+  }
+  .flow-pill {
+    background: var(--navy);
+    color: var(--white);
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 20px;
+  }
+  .flow-arrow {
+    color: var(--accent);
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+
+  /* ─── CREATIVE DIRECTION NOTE ────────────────────────────────── */
+  .creative-note {
+    background: var(--off-white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 22px;
+    margin-bottom: 20px;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .creative-note .s-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--sky);
+    margin-bottom: 8px;
+  }
+  .creative-note p {
+    font-size: 0.87rem;
+    color: var(--text-sub);
+    line-height: 1.68;
+  }
+
+  /* ─── DIVIDER ────────────────────────────────────────────────── */
+  .section-gap { height: 48px; }
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 36px 0;
+  }
+
+  /* ─── FOOTER ─────────────────────────────────────────────────── */
+  .doc-footer {
+    margin-top: 60px;
+    padding-top: 20px;
+    border-top: 2px solid var(--mist);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.78rem;
+    color: var(--text-sub);
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .footer-brand {
+    font-weight: 700;
+    color: var(--navy);
+    font-size: 0.82rem;
+  }
+
+  /* ─── PRINT ──────────────────────────────────────────────────── */
+  @media print {
+    body { background: #fff; font-size: 12px; }
+    .page { padding: 0; max-width: 100%; }
+    .cover { border-radius: 0; }
+    .option-card { border: 1.5px solid #ccc; page-break-inside: avoid; break-inside: avoid; }
+    .option-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .strategy-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .beats-grid { grid-template-columns: 1fr 1fr; }
+    .beat { page-break-inside: avoid; break-inside: avoid; }
+    .action-block { page-break-inside: avoid; break-inside: avoid; }
+    .scenario-block { page-break-inside: avoid; break-inside: avoid; }
+    .creative-note { page-break-inside: avoid; break-inside: avoid; }
+    .doc-footer { page-break-inside: avoid; break-inside: avoid; }
+    .section-gap { height: 24px; }
+    h1, h2, h3 { page-break-after: avoid; break-after: avoid; }
+    .option-header + .option-body { page-break-before: avoid; break-before: avoid; }
+  }
+
+  @page {
+    margin: 22mm 20mm 20mm;
+    size: A4;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ── COVER ──────────────────────────────────────────── -->
+  <div class="cover">
+    <div class="cover-eyebrow">Partnership · Creative Brief · Demo Video</div>
+    <div class="cover-title">
+      AI Rudder <span>×</span> ALE Rainbow Hospitality<br>
+      Storyboard &amp; Collaboration Notes
+    </div>
+    <div class="cover-sub">
+      <span><strong>Document Type:</strong> Video Direction &amp; Action Items</span>
+      <span><strong>Status:</strong> In Progress</span>
+      <span><strong>Audience:</strong> Internal &amp; Production Agency</span>
+    </div>
+  </div>
+
+  <!-- ── ACTION ITEMS ───────────────────────────────────── -->
+  <div class="section-label">Pre-Production</div>
+  <div class="section-title">Action Items</div>
+
+  <div class="action-block">
+    <ul class="action-list">
+      <li class="action-item">
+        <span class="action-check open">○</span>
+        <span>Set up a dedicated WhatsApp group for ongoing collaboration.</span>
+      </li>
+      <li class="action-item">
+        <span class="action-check open">○</span>
+        <span>Review assets shared by Jocelyn and provide feedback.</span>
+      </li>
+      <li class="action-item done-item">
+        <span class="action-check done">✓</span>
+        <span>Lead the first pass on the storyboard and creative direction for the demo video.</span>
+      </li>
+      <li class="action-item">
+        <span class="action-check open">○</span>
+        <span>Coordinate with the external production agency using both AI Rudder and ALE Rainbow brand assets.</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ── OPTION 1 ────────────────────────────────────────── -->
+  <div class="section-label">Video Direction</div>
+  <div class="section-title">Two Creative Options</div>
+
+  <div class="option-card">
+    <div class="option-header">
+      <div class="option-badge">Option 1</div>
+      <div class="option-title-wrap">
+        <div class="option-direction-label">Brand Film Direction</div>
+        <div class="option-title">"Understood"</div>
+        <div class="option-tagline">Emotional · Premium · 90 seconds</div>
+      </div>
+    </div>
+
+    <div class="option-body">
+      <p class="option-intro">
+        <strong>The central idea is simple:</strong> the deepest luxury in hospitality is not the room, the view, or the technology. It is the feeling of being heard and understood, in your own language, at the exact moment you need help. This film is not a product demonstration. We lead with a human story. A weary traveler arrives late at night in a foreign city. The moment she is understood becomes the emotional heart of the film.
+      </p>
+
+      <div class="beats-label">Storyboard: Six Beats</div>
+      <div class="beats-grid">
+        <div class="beat">
+          <div class="beat-header">
+            <span class="beat-num">01</span>
+            <span class="beat-title">Arrival</span>
+            <span class="beat-time">0–15s</span>
+          </div>
+          <p>A woman enters a quiet hotel lobby late at night. The space is beautiful but unfamiliar. She is tired, slightly anxious, and far from home.</p>
+        </div>
+        <div class="beat">
+          <div class="beat-header">
+            <span class="beat-num">02</span>
+            <span class="beat-title">She Speaks</span>
+            <span class="beat-time">15–30s</span>
+          </div>
+          <p>She quietly asks for help in her native language. Her hesitation tells us everything. She is not sure she will be understood.</p>
+        </div>
+        <div class="beat">
+          <div class="beat-header">
+            <span class="beat-num">03</span>
+            <span class="beat-title">She Is Heard</span>
+            <span class="beat-time">30–45s</span>
+          </div>
+          <p>A warm, attentive front desk team member understands immediately. The woman's shoulders drop. Her relief is the emotional payoff.</p>
+        </div>
+        <div class="beat">
+          <div class="beat-header">
+            <span class="beat-num">04</span>
+            <span class="beat-title">A Thousand at Once</span>
+            <span class="beat-time">45–60s</span>
+          </div>
+          <p>The camera widens. The same moment happens across rooms, lobbies, properties, and markets. Guests are speaking in different languages, each one understood.</p>
+        </div>
+        <div class="beat">
+          <div class="beat-header">
+            <span class="beat-num">05</span>
+            <span class="beat-title">The Human Part</span>
+            <span class="beat-time">60–75s</span>
+          </div>
+          <p>Staff across the hotel act quickly and calmly. Technology has removed the friction so people can focus on people.</p>
+        </div>
+        <div class="beat">
+          <div class="beat-header">
+            <span class="beat-num">06</span>
+            <span class="beat-title">Home, Somehow</span>
+            <span class="beat-time">75–90s</span>
+          </div>
+          <p>We return to the woman, now settled in her room. Calm, comfortable, at ease. The film ends in stillness, then cuts to title: <em>Understood.</em></p>
+        </div>
+      </div>
+
+      <div class="strategy-box">
+        <div class="s-label">Strategic Role</div>
+        <p>This concept positions ALE Rainbow Hospitality as the operating backbone that makes the hotel flow, while AI Rudder acts as the conversational intelligence layer that allows every guest to be understood.</p>
+        <p>The technology is the engine, but the guest never needs to see it. The power of the system is proven through the feeling it creates: relief, trust, and human connection.</p>
+        <p>"Understood" is recommended as the most emotional, premium, and ownable idea. Alternative territories include <strong>"The House That Never Sleeps"</strong> (operational excellence focus) and <strong>"In Your Words"</strong> (language and belonging focus). Both are useful, but neither carries the same emotional range.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── OPTION 2 ────────────────────────────────────────── -->
+  <div class="option-card">
+    <div class="option-header">
+      <div class="option-badge">Option 2</div>
+      <div class="option-title-wrap">
+        <div class="option-direction-label">Campaign &amp; Product Film Direction</div>
+        <div class="option-title">"No Guest Moment Missed"</div>
+        <div class="option-tagline">Operational · Workflow-Led · 90 seconds</div>
+      </div>
+    </div>
+
+    <div class="option-body">
+      <p class="option-intro">
+        A more practical and operational approach, clearer as a product and workflow story. It shows how AI Rudder works inside ALE's BYO-AI vision, with Rainbow Hospitality turning guest requests into action across hotel operations.
+      </p>
+
+      <div class="beats-label">Core Message</div>
+      <div class="flow-row">
+        <span class="flow-pill">AI Rudder understands</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-pill">Rainbow orchestrates</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-pill">Hotel staff deliver</span>
+      </div>
+
+      <div class="beats-label">Demo Scenario: Room 1208</div>
+      <div class="scenario-block">
+        <div class="s-label">Guest Request</div>
+        <div class="quote-line">"Can I schedule a 7:00 a.m. wake-up call, order a vegetarian breakfast for 8:15, and ask if late checkout is available?"</div>
+        <p>AI Rudder understands the full request. Rainbow Hospitality routes each action. Staff receive clear instructions. The guest gets what they need.</p>
+      </div>
+
+      <div class="beats-label">Storyboard: Six Scenes</div>
+      <div class="beats-grid">
+        <div class="beat">
+          <div class="beat-header">
+            <span class="beat-num">01</span>
+            <span class="beat-title">The House at Peak Hour</span>
+          </div>
+          <p>A premium hotel during breakfast rush. Busy, but not chaotic. Tone is calm, polished, and operationally focused.</p>
+        </div>
+        <div class="beat">
+          <div class="beat-header">
+            <span class="beat-num">02</span>
+            <span class="beat-title">The Guest Calls</span>
+          </div>
+          <p>Room 1208 makes a simple, natural request using the hotel phone. Camera stays on the person, not the device.</p>
+        </div>
+        <div class="beat">
+          <div class="beat-header">
+            <span class="beat-num">03</span>
+            <span class="beat-title">AI Rudder Understands</span>
+          </div>
+          <p>AI Rudder detects room number, three separate requests, timing, dietary preference, late-checkout intent, and sentiment.</p>
+        </div>
+        <div class="beat">
+          <div class="beat-header">
+            <span class="beat-num">04</span>
+            <span class="beat-title">Rainbow Orchestrates</span>
+          </div>
+          <p>Structured data is routed to the right workflows: wake-up call, room service, front desk approval, staff notification.</p>
+        </div>
+        <div class="beat">
+          <div class="beat-header">
+            <span class="beat-num">05</span>
+            <span class="beat-title">Staff Acts</span>
+          </div>
+          <p>Each team member receives a clear, focused instruction. Staff act quickly and confidently, freeing more time for high-value guest interaction.</p>
+        </div>
+        <div class="beat">
+          <div class="beat-header">
+            <span class="beat-num">06</span>
+            <span class="beat-title">No Moment Missed</span>
+          </div>
+          <p>A satisfied guest, informed staff, a brief manager view. Ends on the co-branded ALE Rainbow Hospitality × AI Rudder end card.</p>
+        </div>
+      </div>
+
+      <div class="creative-note">
+        <div class="s-label">Creative Direction</div>
+        <p>This film should feel like a five-star hotel, not a technology conference. Visual language should be warm, premium, and operationally precise. Avoid futuristic AI graphics, overloaded dashboards, and feature-list narration. UI should appear only when it helps clarify the workflow. The story shows that AI does not replace hospitality. It removes routine friction so hotel staff can deliver better service.</p>
+      </div>
+
+      <div class="strategy-box">
+        <div class="s-label">Strategic Role</div>
+        <p>This option is stronger as a product and workflow explanation. It clearly demonstrates the complete guest journey:</p>
+        <div class="flow-row" style="margin: 12px 0 4px;">
+          <span class="flow-pill" style="font-size:0.78rem;">Guest Request</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-pill" style="font-size:0.78rem;">AI Recognition</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-pill" style="font-size:0.78rem;">Rainbow Orchestration</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-pill" style="font-size:0.78rem;">Staff Delivery</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-pill" style="font-size:0.78rem;">Guest Satisfaction</span>
+        </div>
+        <p style="margin-top:14px;">Recommended campaign line: <strong style="color:var(--accent);">"No Guest Moment Missed."</strong> Practical, ownable, and directly tied to the value of the ALE Rainbow Hospitality and AI Rudder partnership.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FOOTER ──────────────────────────────────────────── -->
+  <div class="doc-footer">
+    <div>
+      <div class="footer-brand">AI Rudder × ALE Rainbow Hospitality</div>
+      <div>Storyboard &amp; Collaboration Notes · Internal Working Document</div>
+    </div>
+    <div style="text-align:right;">
+      First Pass Complete<br>
+      Pending: Agency Handoff &amp; Asset Review
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
